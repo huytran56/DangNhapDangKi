@@ -1,19 +1,16 @@
 
 import './App.css';
-import rocketImg from '../src/assets/anh.jpeg';
+import {Routes, Route} from 'react-router-dom'
 import {Signup} from '../src/components/Signup'
+import {Signin} from '../src/components/Signin'
 function App() {
   return (
-    <div className="container mt-3">
-        <div className="row">
-            <div className="col-md-5">
-                <Signup />
-            </div>  
-            <div className="col-md-7">
-                <img className="img-fluid w-100" src={rocketImg} />
-            </div>  
-
-        </div>
+      <div>
+            <Routes>
+              <Route path="/signup" element={<Signup />}/>
+              <Route path="/" element={<Signin />}/>
+            </Routes>
+        
     </div>
   );
 }

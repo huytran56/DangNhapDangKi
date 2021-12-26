@@ -5,32 +5,20 @@ import {TextField} from './TextField'
 import * as Yup from 'yup'
 import ImageBanner from './anh.jpeg'
 
-export const Signup = () => {
+export const Signin = () => {
     const validate = Yup.object({
-        firstName: Yup.string()
-        .max(15,'Must be 15 characters or less')
-        .required('Required'),
-        lastName: Yup.string()
-        .max(15,'Must be 20 characters or less')
-        .required('Required'),
         email: Yup.string()
         .email('Email is invalid')
         .required('Required'),
         password: Yup.string()
         .min(6,'Must be at least 6 characters')
         .required('Required'),
-        confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null],'Password must match')
-        .required('Required'),
     })
     return (
         <Formik
             initialValues = {{
-                firstName: '',
-                lastName: '',
                 email: '',
                 password: '',
-                confirmPassword: ''
         }}
         validationSchema={validate}
         onSubmit={values => {
@@ -41,17 +29,14 @@ export const Signup = () => {
             <div className="container mt-3">
                 <div className="row">
                     <div className="col-md-5">
-                <h1 className="my-4 font-weight-bold-display-4">Sign Up</h1>
+                <h1 className="my-4 font-weight-bold-display-4">Sign In</h1>
                 <Form>
-                    <TextField label="First Name" name="firstName" type="text" />
-                    <TextField label="Last Name" name="lastName" type="text" />
                     <TextField label="Email" name="email" type="email" />
                     <TextField label="Password" name="password" type="password" />
-                    <TextField label="Confirm Password" name="confirmPassword" type="password" />
-                    <button className="btn btn-dark mt-3" type="submit">Register</button>
+                    <button className="btn btn-dark mt-3" type="submit">Login</button>
                     <button className="btn btn-danger mt-3" type="reset">Reset</button>
-                    <div>
-                    <Link to="/">Go to Sign In</Link>
+                    <div style={{padding : 20}}>
+                    <Link to="/signup">Go to Sign Up</Link>
                     </div>
                 </Form>
                 </div>  
