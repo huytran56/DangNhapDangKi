@@ -1,11 +1,15 @@
 import React from 'react'
 import {Formik, Form} from 'formik'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {TextField} from './TextField'
 import * as Yup from 'yup'
 import ImageBanner from './anh.jpeg'
+import {signin} from '../api/auth'
+import history from '../history/history'
 
 export const Signin = () => {
+    let navigate = useNavigate()
+    
     const validate = Yup.object({
         email: Yup.string()
         .email('Email is invalid')
@@ -14,6 +18,18 @@ export const Signin = () => {
         .min(6,'Must be at least 6 characters')
         .required('Required'),
     })
+    
+    const handleOnClickLogin = async (
+        value
+    ) => {
+        const {email, password} = value
+        const res = await signin(email,password)
+        console.log(res.data.roles)
+        if(res.data.roles == 'ROLE_ADMIN'){
+            return navigate('/admin')
+        }
+    }
+    
     return (
         <Formik
             initialValues = {{
@@ -21,9 +37,7 @@ export const Signin = () => {
                 password: '',
         }}
         validationSchema={validate}
-        onSubmit={values => {
-            console.log(values)
-        }}
+        onSubmit={handleOnClickLogin}
         >    
             {formik => (
             <div className="container mt-3">
